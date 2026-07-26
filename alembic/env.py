@@ -7,6 +7,9 @@ from alembic import context
 
 from app.db.base import Base
 from app.models.tool import Tool
+from app.models.borrower import Borrower
+from app.models.loan import Loan
+
 from app.core.config import settings
 
 # this is the Alembic Config object, which provides
