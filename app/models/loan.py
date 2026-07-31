@@ -1,6 +1,7 @@
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer
-from app.db.base import Base
+from sqlalchemy.orm import relationship
 
+from app.db.base import Base
 
 class Loan(Base):
     __tablename__ = "loans"
@@ -11,3 +12,13 @@ class Loan(Base):
     loan_date = Column(Date, nullable=False)
     return_date = Column(Date, nullable=True)
     returned = Column(Boolean, default=False)
+
+    tool = relationship(
+    "Tool",
+    back_populates="loans"
+)
+
+    borrower = relationship(
+    "Borrower",
+    back_populates="loans"
+)
