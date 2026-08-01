@@ -54,10 +54,11 @@ def update_existing_tool(
     tool: ToolUpdate,
     db: Session = Depends(get_db)
 ):
-    updated_tool = update_tool(db, tool_id, tool)
+    return update_tool(db, tool_id, tool)
 
 
 
 @router.delete("/{tool_id}")
 def delete_existing_tool(tool_id: int, db: Session = Depends(get_db)):
-    deleted_tool = delete_tool(db, tool_id)
+    delete_tool(db, tool_id)
+    return {"message": "Tool deleted successfully"}

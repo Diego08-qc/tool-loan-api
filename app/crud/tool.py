@@ -51,12 +51,6 @@ def create_tool(db: Session, tool: ToolCreate):
 def update_tool(db: Session, tool_id: int, tool: ToolUpdate):
     db_tool = get_tool(db, tool_id)
 
-    if not db_tool:
-        raise HTTPException(
-            status_code=404,
-            detail="Tool not found"
-    )
-
     for key, value in tool.model_dump().items():
         setattr(db_tool, key, value)
 
@@ -68,12 +62,6 @@ def update_tool(db: Session, tool_id: int, tool: ToolUpdate):
 
 def delete_tool(db: Session, tool_id: int):
     db_tool = get_tool(db, tool_id)
-
-    if not db_tool:
-        raise HTTPException(
-            status_code=404,
-            detail="Tool not found"
-    )
 
     db.delete(db_tool)
     db.commit()
