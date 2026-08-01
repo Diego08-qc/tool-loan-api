@@ -18,6 +18,9 @@ def get_loan(db: Session, loan_id: int):
 
 
 
+
+
+
 def create_loan(db: Session, loan: LoanCreate):
     tool = db.query(Tool).filter(Tool.id == loan.tool_id).first()
 
@@ -35,7 +38,7 @@ def create_loan(db: Session, loan: LoanCreate):
 
         # TIENE EXCEPCION SI NO HAY HERRAMIENTAS DISPONIBLES
         raise HTTPException(
-        status_code=404,
+        status_code=400,
         detail="Tool is not available"
 )
 

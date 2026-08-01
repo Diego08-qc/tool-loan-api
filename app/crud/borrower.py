@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from app.models.borrower import Borrower
@@ -26,7 +27,10 @@ def update_borrower(db: Session, borrower_id: int, borrower: BorrowerUpdate):
     db_borrower = get_borrower(db, borrower_id)
 
     if not db_borrower:
-        return None
+        raise HTTPException(
+            status_code=404,
+            detail="Borrower not found"
+    )
 
     for key, value in borrower.model_dump().items():
         setattr(db_borrower, key, value)
@@ -41,7 +45,10 @@ def delete_borrower(db: Session, borrower_id: int):
     db_borrower = get_borrower(db, borrower_id)
 
     if not db_borrower:
-        return None
+        raise HTTPException(
+            status_code=404,
+            detail="Borrower not found"
+    )
 
     db.delete(db_borrower)
     db.commit()
